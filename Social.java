@@ -1,43 +1,24 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Social {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        Scanner inInt = new Scanner(System.in);
 
-        String[][] utenti = new String[4][5];
+        ArrayList<Utente> utenti = new ArrayList<>();
         // utente 1
-        utenti[0][0] = "simone";      // username
-        utenti[0][1] = "qwerty";      // password
-        utenti[0][2] = "12@12.12";    // email
-        utenti[0][3] = "123";         // numero (non usato, ma lasciato per completezza)
-        utenti[0][4] = "20";          // età
+        utenti.add(new Utente("simone", "qwerty", "12@12.12", "123", 20));
 
         // utente 2
-        utenti[1][0] = "giovanni";
-        utenti[1][1] = "asdfg";
-        utenti[1][2] = "34@34.34";
-        utenti[1][3] = "456";
-        utenti[1][4] = "30";
+        utenti.add(new Utente("giovanni", "asdfg", "34@34.34", "456", 30));
 
         // utente 3
-        utenti[2][0] = "francesco";
-        utenti[2][1] = "zxcvb";
-        utenti[2][2] = "56@56.56";
-        utenti[2][3] = "789";
-        utenti[2][4] = "40";
-
-        // utente nuovo (inizialmente vuoto)
-        utenti[3][0] = "";
-        utenti[3][1] = "";
-        utenti[3][2] = "";
-        utenti[3][3] = "";
-        utenti[3][4] = "";
+        utenti.add(new Utente("francesco", "zxcvb", "56@56.56", "789", 40));
 
         System.out.println("Sei registrato? SI / NO");
         String x = in.nextLine();
-        boolean confermaLog = false; // dichiarare confermaLog 
 
+        boolean confermaLog = false;
         if (x.equalsIgnoreCase("si")) {
             System.out.println("Inserisci email e password");
             String email = in.nextLine();
@@ -49,16 +30,13 @@ public class Social {
                 String email = in.nextLine();
                 String password = in.nextLine();
                 confermaLog = login(email, password, utenti);
-            } else {
-                confermaLog = false;
             }
         } else {
             System.out.println("Dati inseriti errati");
-            confermaLog = false;
         }
 
         if (confermaLog) {
-            System.out.println("Vuoi eseguire dei calcoli?  SI/NO");
+            System.out.println("Vuoi eseguire dei calcoli? SI/NO");
             String scelta = in.nextLine();
             if (scelta.equalsIgnoreCase("si")) {
                 boolean altreOperazioni = true;
@@ -72,26 +50,26 @@ public class Social {
                     switch (sceltaOperazione) {
                         case "1":
                             System.out.println("Inserisci i 2 numeri di cui fare la somma");
-                            int num1 = inInt.nextInt();
-                            int num2 = inInt.nextInt();
+                            int num1 = in.nextInt();
+                            int num2 = in.nextInt();
                             System.out.println(num1 + " + " + num2 + " = " + (num1 + num2));
                             break;
                         case "2":
                             System.out.println("Inserisci i 2 numeri di cui fare la sottrazione");
-                            int num3 = inInt.nextInt();
-                            int num4 = inInt.nextInt();
+                            int num3 = in.nextInt();
+                            int num4 = in.nextInt();
                             System.out.println(num3 + " - " + num4 + " = " + (num3 - num4));
                             break;
                         case "3":
                             System.out.println("Inserisci i 2 numeri di cui fare la moltiplicazione");
-                            int num5 = inInt.nextInt();
-                            int num6 = inInt.nextInt();
+                            int num5 = in.nextInt();
+                            int num6 = in.nextInt();
                             System.out.println(num5 + " * " + num6 + " = " + (num5 * num6));
                             break;
                         case "4":
                             System.out.println("Inserisci i 2 numeri di cui fare la divisione");
-                            int num7 = inInt.nextInt();
-                            int num8 = inInt.nextInt();
+                            int num7 = in.nextInt();
+                            int num8 = in.nextInt();
                             if (num8 != 0) {
                                 System.out.println(num7 + " / " + num8 + " = " + (num7 / num8));
                             } else {
@@ -101,46 +79,72 @@ public class Social {
                         default:
                             System.out.println("Operazione non valida.");
                     }
+                    in.nextLine();  // Consuma il newline rimasto dopo in.nextInt()
                     System.out.println("Vuoi fare altre operazioni? SI/NO");
                     String operazioni = in.nextLine();
-                    if (operazioni.equalsIgnoreCase("si")) {
-                        altreOperazioni = true;
-                    } else {
+                    if (!operazioni.equalsIgnoreCase("si")) {
                         altreOperazioni = false;
                     }
                 }
             } else {
-                System.out.println("Vuoi fare il logout?");
+                System.out.println("Vuoi cambaire nome utente e password?");
+                String cambio = in.nextLine();
+                if (cambio.equalsIgnoreCase("si")) {
+                    System.out.println("Inserisci l'email con cui ti sei loggato");
+                    String emailCambio = in.nextLine();
+                    modificaUtente(utenti, emailCambio);
+                }
+            }
+            System.out.println("Vuoi fare il logout?");
                 String logout = in.nextLine();
                 if (logout.equalsIgnoreCase("si")) {
                     System.out.println("Bene, ciao!");
                 }
-            }
         }
+        System.out.println("Vuoi vedere gli utenti registrati?  SI/NO");
+        String printUser= in.nextLine();
+        if(printUser.equalsIgnoreCase("si")){
+            stampaUtenti(utenti);
+        }else{
+            System.out.println("arrivederci e grazie");
+        }
+        in.close();
     }
 
-    public static boolean login(String email, String password, String[][] user) {
+    public static boolean login(String email, String password, ArrayList<Utente> utenti) {
         Scanner inLog = new Scanner(System.in);
         int tentativiEmail = 0;
         int tentativiPassword = 0;
 
         while (tentativiEmail < 3 || tentativiPassword < 3) {
             boolean emailTrovata = false;
-            for (int i = 0; i < user.length; i++) {
-                if (email.equals(user[i][2])) {  // Email è alla posizione 2
+            for (Utente utente : utenti) {
+                if (email.equals(utente.getEmail())) {
                     emailTrovata = true;
-                    if (password.equals(user[i][1])) {  // Password è alla posizione 1
-                        System.out.println("Benvenuto " + user[i][0]);  // Username è alla posizione 0
+                    if (password.equals(utente.getPassword())) {
+                        System.out.println("Benvenuto " + utente.getUsername());
                         return true;
                     } else {
                         System.out.println("La password inserita non è corretta. Riprovare? SI/NO");
                         String riprovaPassword = inLog.nextLine();
                         if (riprovaPassword.equalsIgnoreCase("si")) {
                             tentativiPassword++;
-                            System.out.println("Reinserisci password:");
+                            System.out.println("Reinserisci email e password:");
+                            email = inLog.nextLine();
                             password = inLog.nextLine();
                             break;  // Esci dal ciclo for per ricontrollare con le nuove credenziali.
+                        } else if (riprovaPassword.equalsIgnoreCase("no")) {
+                            System.out.println("Vuoi procedere con il recupero della password? SI/NO");
+                            riprovaPassword = inLog.nextLine();
+                            if (riprovaPassword.equalsIgnoreCase("si")) {
+                                // Chiamata alla funzione per il recupero della password
+                                System.out.println("Recupero password in corso");
+                            } else {
+                                System.out.println("CIAOOOOO!");
+                                return false;
+                            }
                         } else {
+                            System.out.println("La risposta data non è valida. CIAO!");
                             return false;
                         }
                     }
@@ -154,7 +158,18 @@ public class Social {
                     System.out.println("Reinserisci email e password:");
                     email = inLog.nextLine();
                     password = inLog.nextLine();
+                } else if (riprovaEmail.equalsIgnoreCase("no")) {
+                    System.out.println("Vuoi procedere con il recupero dell'email? SI/NO");
+                    riprovaEmail = inLog.nextLine();
+                    if (riprovaEmail.equalsIgnoreCase("si")) {
+                        // Chiamata alla funzione per il recupero dell'email
+                        System.out.println("Recupero email in corso");
+                    } else {
+                        System.out.println("CIAOOOOO!");
+                        return false;
+                    }
                 } else {
+                    System.out.println("La risposta data non è valida. CIAO!");
                     return false;
                 }
             }
@@ -163,17 +178,19 @@ public class Social {
         return false;
     }
 
-    public static boolean registrazione(String[][] user) {
+    public static boolean registrazione(ArrayList<Utente> utenti) {
         Scanner inReg = new Scanner(System.in);
         System.out.println("Inserisci un'email");
         String email = inReg.nextLine();
         boolean emailEsistente = false;
-        for (int i = 0; i < user.length; i++) {
-            if (user[i][2].equals(email)) {
+
+        for (Utente utente : utenti) {
+            if (utente.getEmail().equals(email)) {
                 emailEsistente = true;
                 break;
             }
         }
+
         if (emailEsistente) {
             System.out.println("Email già esistente, vuoi procedere con il login? SI/NO");
             String risposta = inReg.nextLine();
@@ -181,7 +198,7 @@ public class Social {
                 System.out.println("Inserisci email e password");
                 String emailLog = inReg.nextLine();
                 String passLog = inReg.nextLine();
-                return login(emailLog, passLog, user);
+                return login(emailLog, passLog, utenti);
             } else {
                 System.out.println("Deciditi, ciao!");
                 return false;
@@ -198,27 +215,52 @@ public class Social {
             System.out.println("Inserisci numero");
             String numero = inReg.nextLine();
             System.out.println("Inserisci età");
-            String eta = inReg.nextLine();
-            boolean utenteInserito = false;
-            for (int i = 0; i < user.length; i++) {
-                if (user[i][2].isEmpty()) {
-                    user[i][0] = username;
-                    user[i][1] = password;
-                    user[i][2] = email;
-                    user[i][3] = numero;
-                    user[i][4] = eta;
-                    utenteInserito = true;
-                    break;
-                }
-            }
-            if(utenteInserito){
-                System.out.println("utente inserito");
-                return true;
-            }
+            int eta = inReg.nextInt();
 
+            Utente nuovoUtente = new Utente(username, password, email, numero, eta);
+            utenti.add(nuovoUtente);
+            System.out.println("Utente registrato con successo");
+            return true;
         }
-        return true;
     }
+    public static void stampaUtenti(ArrayList<Utente> utenti) {
+        if (utenti.isEmpty()) {
+            System.out.println("Nessun utente registrato.");
+        } else {
+            for (Utente utente : utenti) {
+                System.out.println("Username: " + utente.getUsername() + ", Email: " + utente.getEmail() + 
+                                   ", Numero: " + utente.getNumero() + ", Età: " + utente.getEta());
+            }
+        }
+    }
+    public static void modificaUtente(ArrayList<Utente> utenti, String email) {
+        Scanner in = new Scanner(System.in);
+        boolean utenteTrovato = false;
     
+        for (Utente utente : utenti) {
+            if (utente.getEmail().equalsIgnoreCase(email)) {
+                utenteTrovato = true;
+                
+                System.out.println("Utente trovato: " + utente.getUsername());
+                System.out.println("Inserisci il nuovo nome utente:");
+                String nuovoNome = in.nextLine();
+                System.out.println("Inserisci la nuova password:");
+                String nuovaPassword = in.nextLine();
+                
+                // Usando i metodi setter per aggiornare i campi, è necessario aggiungere i metodi setter alla classe Utente
+                utente.setUsername(nuovoNome);
+                utente.setPassword(nuovaPassword);
+                
+                System.out.println("Nome utente e password aggiornati con successo.");
+                break;
+            }
+        }
+    
+        if (!utenteTrovato) {
+            System.out.println("Utente con l'email " + email + " non trovato.");
+        }
+    }
+        
 }
+
 
