@@ -12,7 +12,7 @@ public class EsercizioArrayList {
             System.out.println("Inserisci un nome");
             arrayList.add(in.nextLine());
         }
-        for(int i = 0; i<5;i++){
+        for(int i = 0; i<l;i++){
             System.out.println(arrayList.get(i));
         }
         System.out.println("Vuoi rimuovere un nome?  SI/NO");
