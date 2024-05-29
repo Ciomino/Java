@@ -29,8 +29,12 @@ public class SistemaDiVentilazione implements DispositiviDiSicurezza{
             System.out.println("Il sistema di ventilazione funziona e ti rimangono "+utilizzi+" utilizzi");
             return true;
         }else{
+            disattiva();
             return false;
         }
+    }
+    public boolean isStato() {
+        return stato;
     }
 
     

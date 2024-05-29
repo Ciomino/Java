@@ -30,8 +30,12 @@ public class AllarmeAntincendio implements DispositiviDiSicurezza{
             System.out.println("L'allarme funziona ti rimangono "+utilizzi+" utilizzi");
             return true;
         }else{
+            disattiva();
             return false;
         }
+    }
+    public boolean isStato() {
+        return stato;
     }
 
     

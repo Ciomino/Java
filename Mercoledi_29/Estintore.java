@@ -39,6 +39,10 @@ public class Estintore implements DispositiviDiSicurezza{
         
     }
 
+    public boolean isStato() {
+        return stato;
+    }
+
 
     
 }
