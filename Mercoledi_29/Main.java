@@ -17,7 +17,7 @@ public class Main{
         array.add(sistemaDiVentilazione);
         array.add(kitDiProntoSoccorso);
         for(DispositiviDiSicurezza dis : array){
-            System.out.println("Vuoi sapere le condizioni dell"+dis.getNome()+" ?    SI/NO");
+            System.out.println("Vuoi sapere le condizioni dell' "+dis.getNome()+" ?    SI/NO");
             String ris = in.nextLine();
             if (ris.equalsIgnoreCase("si")){
                 f=funzionamento(dis);
@@ -27,7 +27,10 @@ public class Main{
                 ris= in.nextLine();
                 if(ris.equalsIgnoreCase("si")){
                     attiva(dis);
+                }else{
+                    disattiva(dis);
                 }
+
             }
             
             
@@ -37,7 +40,7 @@ public class Main{
     public static void attiva(DispositiviDiSicurezza x){
         x.attiva();
     }
-    public void disattiva(DispositiviDiSicurezza x){
+    public static void disattiva(DispositiviDiSicurezza x){
         x.disattiva();
     }
     public static boolean funzionamento(DispositiviDiSicurezza x){
