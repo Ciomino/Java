@@ -1,10 +1,12 @@
 public class Estintore implements DispositiviDiSicurezza{
 
+    public String nome;
     private boolean stato;
     public int livello;
     public String tipo;
 
-    public Estintore(boolean stato,int livello, String tipo){
+    public Estintore(String nome,boolean stato,int livello, String tipo){
+        this.nome=nome;
         this.stato=false;
         this.livello=livello;
         this.tipo=tipo;
@@ -41,6 +43,10 @@ public class Estintore implements DispositiviDiSicurezza{
 
     public boolean isStato() {
         return stato;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
 

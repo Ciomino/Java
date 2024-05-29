@@ -1,10 +1,12 @@
 public class KitDiProntoSoccorso implements DispositiviDiSicurezza{
 
+    public String nome;
    private boolean stato; //in utilizzo o meno
    public int scaduto;
 
 
-   public KitDiProntoSoccorso(boolean stato,int scaduto){
+   public KitDiProntoSoccorso(String nome,boolean stato,int scaduto){
+    this.nome=nome;
     this.stato=false;
     this.scaduto=scaduto;
    }
@@ -39,6 +41,9 @@ public class KitDiProntoSoccorso implements DispositiviDiSicurezza{
     }
     public boolean isStato() {
         return stato;
+    }
+    public String getNome() {
+        return nome;
     }
     
 }

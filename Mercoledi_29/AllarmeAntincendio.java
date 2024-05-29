@@ -1,8 +1,10 @@
 public class AllarmeAntincendio implements DispositiviDiSicurezza{
+    public String nome;
     private boolean stato;
     public int utilizzi; //dopo un tot di utilizzi si rompe
 
-    public AllarmeAntincendio(boolean stato, int ultimaManutenzione){
+    public AllarmeAntincendio(String nome,boolean stato, int utilizzi){
+        this.nome=nome;
         this.stato=false;
         this.utilizzi=utilizzi;
     }
@@ -36,6 +38,9 @@ public class AllarmeAntincendio implements DispositiviDiSicurezza{
     }
     public boolean isStato() {
         return stato;
+    }
+    public String getNome() {
+        return nome;
     }
 
     

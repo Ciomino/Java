@@ -1,9 +1,11 @@
 public class SistemaDiVentilazione implements DispositiviDiSicurezza{
 
+    public String nome;
     private boolean stato;
     public int utilizzi;
 
-    public SistemaDiVentilazione(boolean stato,int utilizzi){
+    public SistemaDiVentilazione(String nome,boolean stato,int utilizzi){
+        this.nome=nome;
         this.stato=false;
         this.utilizzi=utilizzi;
     }
@@ -35,6 +37,9 @@ public class SistemaDiVentilazione implements DispositiviDiSicurezza{
     }
     public boolean isStato() {
         return stato;
+    }
+    public String getNome() {
+        return nome;
     }
 
     
