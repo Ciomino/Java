@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<persons>
+    <person id="1">
+        <name>mario</name>
+        <age>10</age>
+        <info>ciao mario 10</info>
+    </person>
+    <person id="2">
+        <name>luigi</name>
+        <age>40</age>
+        <info>ciao luigi 40</info>
+    </person>
+    <person id="3">
+        <name>luigi</name>
+        <age>40</age>
+        <info>ciao luigi 40</info>
+    </person>
+</persons>
