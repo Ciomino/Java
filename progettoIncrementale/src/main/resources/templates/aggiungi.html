@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Aggiungi Ricetta</title>
+</head>
+<body>
+    <h1>Aggiungi Ricetta</h1>
+    <form action="/aggiungi" method="post">
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome"><br>
+        <label for="ingredienti">Ingredienti:</label><br>
+        <textarea id="ingredienti" name="ingredienti"></textarea><br>
+        <label for="procedimento">Procedimento:</label><br>
+        <textarea id="procedimento" name="procedimento"></textarea><br>
+        <input type="submit" value="Aggiungi">
+    </form>
+</body>
+</html>
