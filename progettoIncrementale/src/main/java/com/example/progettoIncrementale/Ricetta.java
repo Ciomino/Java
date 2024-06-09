@@ -13,13 +13,12 @@ public class Ricetta {
     private String nome;
     private String ingredienti;
     private String procedimento;
+
+
+    
     public String getNome() {
         return nome;
     }
-
-    
-
-    
     public void setNome(String nome) {
         this.nome = nome;
     }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Modifica Ricetta</title>
+</head>
+<body>
+    <h1>Modifica Ricetta</h1>
+    <form th:action="@{'/aggiorna/' + ${ricetta.id}}" method="post">
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome" th:value="${ricetta.nome}"><br>
+        <label for="ingredienti">Ingredienti:</label><br>
+        <textarea id="ingredienti" name="ingredienti" th:text="${ricetta.ingredienti}"></textarea><br>
+        <label for="procedimento">Procedimento:</label><br>
+        <textarea id="procedimento" name="procedimento" th:text="${ricetta.procedimento}"></textarea><br>
+        <input type="submit" value="Aggiorna">
+    </form>
+    <form th:action="@{'/elimina/' + ${ricetta.id}}" method="post" style="margin-top: 10px;">
+        <input type="submit" value="Elimina" onclick="return confirm('Sei sicuro di voler eliminare questa ricetta?');">
+    </form>
+    <a href="/">Indietro</a>
+</body>
+</html>

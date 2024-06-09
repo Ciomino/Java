@@ -10,13 +10,14 @@
             <th>Nome</th>
             <th>Ingredienti</th>
             <th>Procedimento</th>
+            <th>Azioni</th>
         </tr>
         <tr th:each="ricetta : ${ricetteList}">
             <td th:text="${ricetta.nome}"></td>
             <td th:text="${ricetta.ingredienti}"></td>
             <td th:text="${ricetta.procedimento}"></td>
+            <td><a th:href="@{'/modifica/' + ${ricetta.id}}">Modifica</a></td>
         </tr>
-        
     </table>
     <a href="/aggiungi">Aggiungi Ricetta</a>
 </body>

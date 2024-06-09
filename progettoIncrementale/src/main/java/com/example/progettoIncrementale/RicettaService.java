@@ -8,22 +8,36 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RicettaService {
+
     @Autowired
     private RicettaRepository ricettaRepository;
 
-    public List<Ricetta> findAll(){
+    public List<Ricetta> findAll() {
         return ricettaRepository.findAll();
     }
 
-    public Optional<Ricetta> findById(Long id){
+    public Optional<Ricetta> findById(Long id) {
         return ricettaRepository.findById(id);
     }
 
-    public Ricetta save(Ricetta Ricetta){
-        return ricettaRepository.save(Ricetta);
+    public Ricetta save(Ricetta ricetta) {
+        return ricettaRepository.save(ricetta);
     }
 
-    public void deleteById(Long id){
+    public void deleteById(Long id) {
         ricettaRepository.deleteById(id);
+    }
+
+    public Ricetta updateRicetta(Long id, Ricetta ricettaDetails) {
+        Optional<Ricetta> optionalRicetta = ricettaRepository.findById(id);
+        if (optionalRicetta.isPresent()) {
+            Ricetta existingRicetta = optionalRicetta.get();
+            existingRicetta.setNome(ricettaDetails.getNome());
+            existingRicetta.setIngredienti(ricettaDetails.getIngredienti());
+            existingRicetta.setProcedimento(ricettaDetails.getProcedimento());
+            return ricettaRepository.save(existingRicetta);
+        } else {
+            throw new RuntimeException("Ricetta not found with id " + id);
+        }
     }
 }
